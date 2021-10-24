@@ -15,17 +15,30 @@ namespace gamekeeper
     /// </summary>
     public class Library
     {
+        [JsonProperty(Required = Required.Always)]
         public String path;
+        [JsonProperty(Required = Required.Always)]
         public String name;
     }
+
     
     /// <summary>
     /// Gamekeeper configuration, essentially a collection of source/destination paths.
     /// </summary>
-    class Configuration
+    public class Configuration
     {
-        public String gamekeeper_path;
+        [JsonProperty(Required = Required.Always)]
+        public String gamekeeper_path { get; set; }
         public List<Library> libraries;
+        [JsonProperty(Required = Required.Always)]
+        public int foo { get; set; }
+
+        public Configuration()
+        {
+            this.gamekeeper_path = null;
+            this.libraries = new List<Library>();
+            this.foo = 42;
+        }
 
         /// <summary>
         /// Instantiate a Configuration object from provided JSON buffer.
