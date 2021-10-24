@@ -112,7 +112,8 @@ Click 'cancel' to quit now (allowing you to edit and attempt to fix) or 'OK' to 
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            var sw = new Settings();
+            sw.ShowDialog();
         }
 
         private void ExportImportClick(object sender, RoutedEventArgs e)
