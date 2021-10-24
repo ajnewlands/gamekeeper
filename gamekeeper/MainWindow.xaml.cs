@@ -47,7 +47,10 @@ namespace gamekeeper
             // Configuration is corrupt -> offer to generate default
             catch (Newtonsoft.Json.JsonException e)
             {
-                var result = MessageBox.Show("Configuration is corrupt. Click 'cancel' to quit now (allowing you to edit and attempt to fix) or 'OK' to generate a default configuration, replacing the existing file.",
+                var result = MessageBox.Show($@" 
+Reason: {e.Message}
+
+Click 'cancel' to quit now (allowing you to edit and attempt to fix) or 'OK' to generate a default configuration, replacing the existing file.",
                     "Corrupt configuration.json", 
                     MessageBoxButton.OKCancel);
 
