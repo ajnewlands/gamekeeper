@@ -9,13 +9,7 @@
     <Grid>
         <Button Content="About" HorizontalAlignment="Left" Margin="707,0,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         <Button Content="Settings" HorizontalAlignment="Left" Margin="627,0,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <DataGrid HorizontalAlignment="Stretch" Margin="0,25,0,0" VerticalAlignment="Stretch" Grid.ColumnSpan="2">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Name"/>
-                <DataGridTextColumn Header="Path"/>
-                <DataGridComboBoxColumn Header="Actions" />
-
-            </DataGrid.Columns>
+        <DataGrid HorizontalAlignment="Stretch" Margin="0,25,0,0" VerticalAlignment="Stretch" Grid.ColumnSpan="2" ItemsSource="{Binding Path=games}">
         </DataGrid>
         <Label Content="Filter" HorizontalAlignment="Left" Margin="461,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="12.639,0.885" Height="25"/>
         <ComboBox HorizontalAlignment="Left" Margin="502,0,0,0" VerticalAlignment="Top" Width="120"/>

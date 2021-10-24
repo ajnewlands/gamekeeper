@@ -29,15 +29,13 @@ namespace gamekeeper
     {
         [JsonProperty(Required = Required.Always)]
         public String gamekeeper_path { get; set; }
-        public List<Library> libraries;
         [JsonProperty(Required = Required.Always)]
-        public int foo { get; set; }
+        public List<Library> libraries;
 
         public Configuration()
         {
             this.gamekeeper_path = null;
             this.libraries = new List<Library>();
-            this.foo = 42;
         }
 
         /// <summary>
@@ -54,7 +52,7 @@ namespace gamekeeper
 
         public void WriteToDisk(String path)
         {
-            var json = JsonConvert.SerializeObject(this);
+            var json = JsonConvert.SerializeObject(this, Formatting.Indented);
             System.IO.File.WriteAllText(path, json);
         }
     }
