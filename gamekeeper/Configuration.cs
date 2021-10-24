@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,9 +17,9 @@ namespace gamekeeper
     public class Library
     {
         [JsonProperty(Required = Required.Always)]
-        public String path;
+        public String path { get; set; }
         [JsonProperty(Required = Required.Always)]
-        public String name;
+        public String name { get; set; }
     }
 
     
@@ -29,13 +30,12 @@ namespace gamekeeper
     {
         [JsonProperty(Required = Required.Always)]
         public String gamekeeper_path { get; set; }
-        [JsonProperty(Required = Required.Always)]
-        public List<Library> libraries;
+        public ObservableCollection<Library> libraries { get; set; }
 
         public Configuration()
         {
             this.gamekeeper_path = null;
-            this.libraries = new List<Library>();
+            this.libraries = new ObservableCollection<Library>();
         }
 
         /// <summary>

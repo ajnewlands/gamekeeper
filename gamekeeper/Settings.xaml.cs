@@ -19,9 +19,11 @@ namespace gamekeeper
     /// </summary>
     public partial class Settings : Window
     {
-        public Settings()
+        public Settings(ref Configuration config)
         {
+            DataContext = config;
             InitializeComponent();
+            LibrarySelection.SelectedItem = config.libraries.FirstOrDefault();
         }
     }
 }

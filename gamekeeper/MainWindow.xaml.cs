@@ -21,6 +21,7 @@ namespace gamekeeper
     {
         private const String configuration_path = "./configuration.json";
         public ObservableCollection<GameEntry> games { get; set; }
+        private Configuration _configuration;
 
         private Configuration LoadConfiguration()
         {
@@ -82,7 +83,7 @@ Click 'cancel' to quit now (allowing you to edit and attempt to fix) or 'OK' to 
             Directory.CreateDirectory(init.path);
             // TODO scan for easily identified libraries, e.g Steam (registry key)
 
-            configuration = new Configuration { gamekeeper_path = init.path, libraries = new List<Library>() };
+            configuration = new Configuration { gamekeeper_path = init.path, libraries = new ObservableCollection<Library>() };
 
             configuration.WriteToDisk(configuration_path);
             return configuration;
@@ -90,12 +91,12 @@ Click 'cancel' to quit now (allowing you to edit and attempt to fix) or 'OK' to 
 
         public MainWindow()
         {
-            var configuration = LoadConfiguration();
+            _configuration = LoadConfiguration();
             games = new ObservableCollection<GameEntry>();
             DataContext = this;
             InitializeComponent();
 
-            foreach (var lib in configuration.libraries)
+            foreach (var lib in _configuration.libraries)
             {
                 // TODO read files/junction points and add to dataview (asynchronously?)
                 foreach (var dir in Directory.GetDirectories(lib.path))
@@ -112,7 +113,7 @@ Click 'cancel' to quit now (allowing you to edit and attempt to fix) or 'OK' to 
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var sw = new Settings();
+            var sw = new Settings(ref this._configuration);
             sw.ShowDialog();
         }
 
