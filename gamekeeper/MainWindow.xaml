@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="Gamekeeper" Height="450" Width="800">
     <Grid>
-        <Button Content="About" HorizontalAlignment="Left" Margin="707,0,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <Button Content="Settings" HorizontalAlignment="Left" Margin="627,0,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button Content="About" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Button Content="Settings" HorizontalAlignment="Right" Margin="0,0,90,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         <DataGrid AutoGenerateColumns="False"  HorizontalAlignment="Stretch" Margin="0,25,0,0" VerticalAlignment="Stretch" Grid.ColumnSpan="2" ItemsSource="{Binding games}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
@@ -23,8 +23,8 @@
                 <DataGridTextColumn Header="Path" Binding="{Binding Path}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Filter" HorizontalAlignment="Left" Margin="461,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="12.639,0.885" Height="25"/>
-        <ComboBox HorizontalAlignment="Left" Margin="502,0,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Filter" HorizontalAlignment="Right" Margin="0,-3,356,0" VerticalAlignment="Top" RenderTransformOrigin="12.639,0.885" Height="25"/>
+        <ComboBox HorizontalAlignment="Right" Margin="0,0,170,0" VerticalAlignment="Top" Width="171"/>
 
     </Grid>
 </Window>
