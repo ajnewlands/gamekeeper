@@ -1,21 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.IO;
+using System.Collections.ObjectModel;
 
 namespace gamekeeper
 {
@@ -28,20 +17,10 @@ namespace gamekeeper
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : Window
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         private const String configuration_path = "./configuration.json";
-        private List<GameEntry> _games = new List<GameEntry>();
-        public List<GameEntry>  games {
-            get {
-                return _games;
-            }
-            set {
-                _games = value;
-                OnPropertyChanged();
-            }
-        }
+        public ObservableCollection<GameEntry> games { get; set; }
 
         private Configuration LoadConfiguration()
         {
@@ -112,35 +91,36 @@ Click 'cancel' to quit now (allowing you to edit and attempt to fix) or 'OK' to 
         public MainWindow()
         {
             var configuration = LoadConfiguration();
+            games = new ObservableCollection<GameEntry>();
             DataContext = this;
             InitializeComponent();
 
-            var mygames = new List<GameEntry>();
             foreach (var lib in configuration.libraries)
             {
                 // TODO read files/junction points and add to dataview (asynchronously?)
                 foreach (var dir in Directory.GetDirectories(lib.path))
                 {
                     // TODO better to just calculator name via an accessor
-                    mygames.Add(new GameEntry {
+                    games.Add(new GameEntry {
                         Name = System.IO.Path.GetFileName(dir),
                         Path = dir,
                         Library = lib.name, 
-                    }); ;
+                    });
                 }
             }
-            games = mygames;
             // Do the same with the gamekeeper library
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        private void ExportImportClick(object sender, RoutedEventArgs e)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            var button = (Button)sender;
+            var ge = (GameEntry)button.DataContext;
+            MessageBox.Show($"Import/Export for {ge.Name}");
         }
+
     }
 }
