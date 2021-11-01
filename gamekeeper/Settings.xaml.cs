@@ -19,11 +19,11 @@ namespace gamekeeper
     /// </summary>
     public partial class Settings : Window
     {
-        public Settings(ref Configuration config)
+        public Settings(ref Model model)
         {
-            DataContext = config;
+            DataContext = model;
             InitializeComponent();
-            LibrarySelection.SelectedItem = config.libraries.FirstOrDefault();
+            LibrarySelection.SelectedItem = model.Configuration.libraries.FirstOrDefault();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
