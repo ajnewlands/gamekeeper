@@ -1,0 +1,19 @@
+﻿<Window x:Class="gamekeeper.LibrarySettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:gamekeeper"
+        mc:Ignorable="d"
+        Title="LibrarySettings" Height="244" Width="400" MinWidth="400" MinHeight="244" MaxHeight="244" Background="LightGray">
+    <Grid >
+        <Label Content="Name" FontWeight="Bold" HorizontalAlignment="Left" Margin="6,7,-106,0" VerticalAlignment="Top" Width="100" Height="29"/>
+        <Label Content="Path" FontWeight="Bold" HorizontalAlignment="Left" Margin="6,81,-106,-41" VerticalAlignment="Top" Width="100" Height="29"/>
+        <TextBox HorizontalAlignment="Stretch" Height="25" Margin="6,41,10,0" TextWrapping="NoWrap" Text="New Library" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Stretch" Height="25" Margin="6,115,77,0" TextWrapping="NoWrap" Text="C:\Program Files" VerticalAlignment="Top"/>
+        <Button Content="&#x1f5c1; _Select" HorizontalAlignment="right" Margin="0,115,10,0" VerticalAlignment="Top" Width="61" Click="Select_Click" Height="25"/>
+        <Button Content="&#x274c; _Cancel" HorizontalAlignment="Center"  Width="73" IsCancel="True" Height="20" VerticalAlignment="Bottom" Margin="158,0,87,10"/>
+        <Button Content="&#x2713; _OK" HorizontalAlignment="Center"  Width="73" IsDefault="True"  Height="20" VerticalAlignment="Bottom" Margin="80,0,165,10" />
+
+    </Grid>
+</Window>

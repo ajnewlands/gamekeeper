@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:gamekeeper"
         mc:Ignorable="d"
-        Title="InitialSetup" Height="207" Width="539" ResizeMode="NoResize">
+        Title="InitialSetup" Height="207" Width="539" ResizeMode="NoResize" Background="LightGray">
     <Grid Margin="0,0,2,0" Height="149" VerticalAlignment="Top">
         <TextBlock HorizontalAlignment="Stretch" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="92">
             As this is the first time you have run Gamekeeper, some initial setup needs to be completed.

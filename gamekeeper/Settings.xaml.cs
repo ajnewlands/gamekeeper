@@ -24,11 +24,35 @@ namespace gamekeeper
             DataContext = model;
             InitializeComponent();
             LibrarySelection.SelectedItem = model.Configuration.libraries.FirstOrDefault();
+            this.Closed += Settings_Closed;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Settings_Closed(object sender, EventArgs e)
         {
-
+            MessageBox.Show("Save on close not yet implemented..");
         }
+
+        private void Click_New(object sender, RoutedEventArgs e)
+        {
+            var win = new LibrarySettings();
+            win.ShowDialog();
+        }
+        private void Click_Delete(object sender, RoutedEventArgs e)
+        {
+            if (LibrarySelection.SelectedItem != null)
+            {
+                var name = ((Library)LibrarySelection.SelectedItem).name;
+                var r = MessageBox.Show($"Really delete '{name}'?", "Are you sure?", MessageBoxButton.YesNo);
+                if (r == MessageBoxResult.Yes)
+                {
+                    ((Model)this.DataContext).Configuration.libraries.Remove((Library)LibrarySelection.SelectedItem);
+                }
+            }
+        }
+        private void Click_Edit(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Clicked Edit");
+        }
+
     }
 }

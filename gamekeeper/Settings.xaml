@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:gamekeeper"
         mc:Ignorable="d"
-        Title="Settings" Height="204.211" Width="395.874" ResizeMode="NoResize">
+        Title="Settings" Height="204.211" Width="395.874" ResizeMode="NoResize" Background="LightGray">
     <Grid Margin="0,0,0,0">
         <ListBox x:Name="LibrarySelection" ItemsSource="{Binding Configuration.libraries}" DisplayMemberPath="name" HorizontalAlignment="Left" Margin="10,10,0,10" VerticalAlignment="Stretch" Width="124"/>
-        <Button Content="&#x2795; _New" HorizontalAlignment="Left" Margin="299,0,0,10" VerticalAlignment="Bottom" Width="75" RenderTransformOrigin="0.04,0.65"/>
-        <Button Content="&#x270e; _Edit" HorizontalAlignment="Left" Margin="139,0,0,10" VerticalAlignment="Bottom" Width="75" RenderTransformOrigin="0.067,0.6"/>
-        <Button Content="&#x274c; _Delete" HorizontalAlignment="Left" Margin="219,0,0,10" VerticalAlignment="Bottom"  Width="75" Click="Button_Click"/>
+        <Button Content="&#x2795; _New" HorizontalAlignment="Left" Margin="299,0,0,10" VerticalAlignment="Bottom" Width="75" Click="Click_New" RenderTransformOrigin="0.04,0.65"/>
+        <Button Content="&#x270e; _Edit" HorizontalAlignment="Left" Margin="139,0,0,10" VerticalAlignment="Bottom" Width="75" Click="Click_Edit" RenderTransformOrigin="0.067,0.6"/>
+        <Button Content="&#x274c; _Delete" HorizontalAlignment="Left" Margin="219,0,0,10" VerticalAlignment="Bottom"  Width="75" Click="Click_Delete"/>
         <Label Content="Name" FontWeight="Bold" HorizontalAlignment="Left" Margin="149,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.558,-0.192"/>
         <Label Content="{Binding SelectedItem.name, ElementName=LibrarySelection}" FontStyle="Italic" HorizontalAlignment="Left" Margin="169,36,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.9,-1.2"/>
         <Label Content="Path" FontWeight="Bold"  HorizontalAlignment="Left" Margin="149,71,0,0" VerticalAlignment="Top"/>
