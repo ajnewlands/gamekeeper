@@ -13,6 +13,14 @@ namespace gamekeeper
         public String Name { get; set; }
         public String Library { get; set; }
         public String Path { get; set; }
+        public String ButtonText
+        {
+            get
+            {
+                return "\u2B18 Import  ";
+
+            }
+        }
     }
     /// <summary>
     /// Interaction logic for MainWindow.xaml

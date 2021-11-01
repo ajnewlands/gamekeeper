@@ -25,5 +25,10 @@ namespace gamekeeper
             InitializeComponent();
             LibrarySelection.SelectedItem = config.libraries.FirstOrDefault();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

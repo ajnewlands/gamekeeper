@@ -14,8 +14,8 @@
         </TextBlock>
         <Label Content="Gamekeeper folder" HorizontalAlignment="Left" Margin="10,107,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Text="{Binding Path=path}"  Height="23" Margin="126,110,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="329"/>
-        <Button Content="Select" HorizontalAlignment="Left" Margin="460,110,0,0" VerticalAlignment="Top" Width="61" Click="Select_Click"/>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="460,146,0,-17" Width="61" IsCancel="True"/>
-        <Button Content="OK" HorizontalAlignment="Left" Margin="394,146,0,-17" Width="61" IsDefault="True"  RenderTransformOrigin="-0.41,0.5" Height="20" VerticalAlignment="Top" Click="OK_Click"/>
+        <Button Content="&#x1f5c1; _Select" HorizontalAlignment="Left" Margin="460,110,0,0" VerticalAlignment="Top" Width="61" Click="Select_Click"/>
+        <Button Content="&#x274c; _Cancel" HorizontalAlignment="Left" Margin="460,146,0,-17" Width="61" IsCancel="True"/>
+        <Button Content="&#x2713; _OK" HorizontalAlignment="Left" Margin="394,146,0,-17" Width="61" IsDefault="True"  RenderTransformOrigin="-0.41,0.5" Height="20" VerticalAlignment="Top" Click="OK_Click"/>
     </Grid>
 </Window>
