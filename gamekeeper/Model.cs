@@ -126,7 +126,7 @@ namespace gamekeeper
             return configuration;
         }
 
-        public void WriteToDisk(String path)
+        public void WriteToDisk(String path = configuration_path)
         {
             var json = JsonConvert.SerializeObject(this, Formatting.Indented);
             System.IO.File.WriteAllText(path, json);

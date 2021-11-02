@@ -29,13 +29,18 @@ namespace gamekeeper
 
         private void Settings_Closed(object sender, EventArgs e)
         {
-            MessageBox.Show("Save on close not yet implemented..");
+            ((Model)this.DataContext).Configuration.WriteToDisk();
         }
 
         private void Click_New(object sender, RoutedEventArgs e)
         {
             var win = new LibrarySettings("New Library", "C:\\Program Files");
-            win.ShowDialog();
+            var r = win.ShowDialog();
+            if (r == true)
+            {
+                var lib = new Library { name = win.LibraryName, path = win.LibraryPath };
+                ((Model)this.DataContext).Configuration.libraries.Add(lib);
+            }   
         }
 
         private void Click_Delete(object sender, RoutedEventArgs e)
