@@ -10,6 +10,8 @@ using System.Windows;
 using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Windows.Threading;
 
 namespace gamekeeper
 {
@@ -29,11 +31,36 @@ namespace gamekeeper
         {
         }
     }
-    public class GameEntry
+    public class GameEntry: INotifyPropertyChanged
     {
-        public String Name { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private String _name;
+        public String Name { 
+            get
+            {
+                return this._name;
+            }     
+            set
+            {
+                this._name = value;
+                OnPropertyChanged();
+            }
+        }
         public String Library { get; set; }
-        public String Path { get; set; }
+
+        private String _path;
+        public String Path {
+            get
+            {
+                return this._path;
+            }
+            set
+            {
+                this._path = value;
+                OnPropertyChanged();
+            }
+        }
         public String ButtonText
         {
             get
@@ -41,6 +68,10 @@ namespace gamekeeper
                 return "\u2B18 Import  ";
 
             }
+        }
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 
@@ -90,19 +121,28 @@ namespace gamekeeper
     {
         public Configuration Configuration { get; set; }
         public ObservableCollection<GameEntry> Games { get; set; }
+        private List<FileSystemWatcher> _watchers;
 
         public Model()
         {
-
+            _watchers = new List<FileSystemWatcher>();
             Configuration = Configuration.LoadConfiguration();
             Games = new ObservableCollection<GameEntry>();
 
             foreach (var lib in Configuration.libraries)
+            {
                 PopulateLibrary(lib);
+            }
         }
 
         private void PopulateLibrary(Library lib)
         {
+            var watcher = new FileSystemWatcher(lib.path);
+            watcher.Deleted += Watcher_Deleted;
+            watcher.Created += Watcher_Created;
+            watcher.Renamed += Watcher_Renamed;
+            watcher.EnableRaisingEvents = true;
+            _watchers.Add(watcher);
             foreach (var dir in Directory.GetDirectories(lib.path))
             {
                 // TODO better to just calculator name via an accessor
@@ -117,13 +157,52 @@ namespace gamekeeper
             //  TODO Gamekeeper entries are created by checking the type, i.e. junction rather than directory
         }
 
+        private void Watcher_Renamed(object sender, RenamedEventArgs e)
+        {
+            for (var i = this.Games.Count - 1; i >= 0; i--)
+                if (this.Games[i].Path == e.OldFullPath)
+                {
+                    Application.Current.Dispatcher.Invoke(new Action(() => {
+                        this.Games[i].Name = e.Name;
+                        this.Games[i].Path = e.FullPath;
+                    }));
+                }
+        }
+
+        private void Watcher_Created(object sender, FileSystemEventArgs e)
+        {
+            Application.Current.Dispatcher.Invoke(new Action(() => {
+                var library_name = this.Configuration.libraries.Where(x => x.path == Path.GetDirectoryName(e.FullPath)).First().name;
+                var game = new GameEntry { Library = library_name, Name = e.Name, Path = e.FullPath };
+                this.Games.Add(game);
+            }));
+        }
+
+        private void Watcher_Deleted(object sender, FileSystemEventArgs e)
+        {
+            for (var i = this.Games.Count - 1; i >= 0; i--)
+                if (this.Games[i].Path == e.FullPath)
+                {
+                    Application.Current.Dispatcher.Invoke(new Action(() => {
+                        this.Games.RemoveAt(i);
+                    }));
+                }
+        }
+
         public void RemoveLibrary(Library library)
         {
+            // Remove any datagrid entries for the removed library
             for (var i = this.Games.Count - 1; i >= 0; i--)
                 if (this.Games[i].Library == library.name)
                     this.Games.RemoveAt(i);
             this.Configuration.libraries.Remove(library);
+
+            // Stop watching for changes in the deconfigured directory
+            for (var i = this._watchers.Count - 1; i >= 0; i--)
+                if (this._watchers[i].Path == library.path)
+                    this._watchers.RemoveAt(i);
         }
+
 
         public void AddLibrary(Library library)
         {

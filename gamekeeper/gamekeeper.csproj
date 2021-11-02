@@ -64,6 +64,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Junctions.cs" />
     <Compile Include="LibrarySettings.xaml.cs">
       <DependentUpon>LibrarySettings.xaml</DependentUpon>
     </Compile>
