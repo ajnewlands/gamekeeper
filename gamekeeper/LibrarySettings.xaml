@@ -9,11 +9,11 @@
     <Grid >
         <Label Content="Name" FontWeight="Bold" HorizontalAlignment="Left" Margin="6,7,-106,0" VerticalAlignment="Top" Width="100" Height="29"/>
         <Label Content="Path" FontWeight="Bold" HorizontalAlignment="Left" Margin="6,81,-106,-41" VerticalAlignment="Top" Width="100" Height="29"/>
-        <TextBox HorizontalAlignment="Stretch" Height="25" Margin="6,41,10,0" TextWrapping="NoWrap" Text="New Library" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Stretch" Height="25" Margin="6,115,77,0" TextWrapping="NoWrap" Text="C:\Program Files" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Stretch" Height="25" Margin="6,41,10,0" TextWrapping="NoWrap" Text="{Binding LibraryName}" VerticalAlignment="Top"/>
+        <TextBox x:Name="PathBox"  HorizontalAlignment="Stretch" Height="25" Margin="6,115,77,0" TextWrapping="NoWrap" Text="{Binding LibraryPath}" VerticalAlignment="Top"/>
         <Button Content="&#x1f5c1; _Select" HorizontalAlignment="right" Margin="0,115,10,0" VerticalAlignment="Top" Width="61" Click="Select_Click" Height="25"/>
         <Button Content="&#x274c; _Cancel" HorizontalAlignment="Center"  Width="73" IsCancel="True" Height="20" VerticalAlignment="Bottom" Margin="158,0,87,10"/>
-        <Button Content="&#x2713; _OK" HorizontalAlignment="Center"  Width="73" IsDefault="True"  Height="20" VerticalAlignment="Bottom" Margin="80,0,165,10" />
+        <Button Content="&#x2713; _OK" HorizontalAlignment="Center"  Width="73" IsDefault="True"  Height="20" VerticalAlignment="Bottom" Margin="80,0,165,10" Click="Click_OK" />
 
     </Grid>
 </Window>

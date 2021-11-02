@@ -34,9 +34,10 @@ namespace gamekeeper
 
         private void Click_New(object sender, RoutedEventArgs e)
         {
-            var win = new LibrarySettings();
+            var win = new LibrarySettings("New Library", "C:\\Program Files");
             win.ShowDialog();
         }
+
         private void Click_Delete(object sender, RoutedEventArgs e)
         {
             if (LibrarySelection.SelectedItem != null)
@@ -49,10 +50,17 @@ namespace gamekeeper
                 }
             }
         }
+
         private void Click_Edit(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Clicked Edit");
-        }
+            var selected = (Library)LibrarySelection.SelectedItem;
+            var win = new LibrarySettings(selected.name, selected.path);
+            var r = win.ShowDialog();
 
+            if (r == true) {
+                ((Library)LibrarySelection.SelectedItem).name = win.LibraryName;
+                ((Library)LibrarySelection.SelectedItem).path = win.LibraryPath;
+            }
+        }
     }
 }

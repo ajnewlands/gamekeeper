@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Newtonsoft.Json;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace gamekeeper
 {
@@ -31,12 +33,41 @@ namespace gamekeeper
     /// what it is called and
     /// where it is found
     /// </summary>
-    public class Library
+    public class Library: INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private String _path;
         [JsonProperty(Required = Required.Always)]
-        public String path { get; set; }
+        public String path { 
+            get
+            {
+                return this._path;
+            }
+            set
+            {
+                this._path = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private String _name;
         [JsonProperty(Required = Required.Always)]
-        public String name { get; set; }
+        public String name { 
+            get {
+                return this._name;
+            }
+            set
+            {
+                this._name = value;
+                OnPropertyChanged();
+            }
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
     }
 
     public class Model
