@@ -96,6 +96,13 @@ namespace gamekeeper
             }
             // Do the same with the gamekeeper library
         }
+
+        public void RemoveLibrary(String LibraryName)
+        {
+            for (var i = this.Games.Count - 1; i >= 0; i--)
+                if (this.Games[i].Library == LibraryName)
+                    this.Games.RemoveAt(i);
+        }
     }
     
     /// <summary>

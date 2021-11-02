@@ -36,16 +36,9 @@ namespace gamekeeper
         {
             if (e.Action == NotifyCollectionChangedAction.Remove)
             {
-                for (var i = this._model.Games.Count - 1; i >= 0; i--)
+                foreach(var lib in e.OldItems)
                 {
-                    foreach (Library lib in e.OldItems)
-                    {
-                        if (this._model.Games[i].Library == lib.name)
-                        {
-                            this._model.Games.RemoveAt(i);
-                            break;
-                        }
-                    }
+                    this._model.RemoveLibrary(((Library)lib).name);
                 }
             }
 
