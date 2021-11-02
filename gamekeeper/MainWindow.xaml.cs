@@ -26,27 +26,11 @@ namespace gamekeeper
         public MainWindow()
         {
             _model = new Model();
-            this._model.Configuration.libraries.CollectionChanged += OnLibraryChanged;
             DataContext = _model;
             InitializeComponent();
 
         }
 
-        private void OnLibraryChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (e.Action == NotifyCollectionChangedAction.Remove)
-            {
-                foreach(var lib in e.OldItems)
-                {
-                    this._model.RemoveLibrary(((Library)lib).name);
-                }
-            }
-
-            if (e.Action == NotifyCollectionChangedAction.Add)
-            {
-                MessageBox.Show("Add not implemented");
-            }
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

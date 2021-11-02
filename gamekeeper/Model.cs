@@ -13,6 +13,22 @@ using System.Runtime.CompilerServices;
 
 namespace gamekeeper
 {
+    public class InvalidLibraryException : Exception
+    {
+        public InvalidLibraryException()
+        {
+        }
+
+        public InvalidLibraryException(string message)
+            : base(message)
+        {
+        }
+
+        public InvalidLibraryException(string message, Exception inner)
+            : base(message, inner)
+        {
+        }
+    }
     public class GameEntry
     {
         public String Name { get; set; }
@@ -82,26 +98,45 @@ namespace gamekeeper
             Games = new ObservableCollection<GameEntry>();
 
             foreach (var lib in Configuration.libraries)
-            {
-                // TODO read files/junction points and add to dataview (asynchronously?)
-                foreach (var dir in Directory.GetDirectories(lib.path))
-                {
-                    // TODO better to just calculator name via an accessor
-                    Games.Add(new GameEntry {
-                        Name = System.IO.Path.GetFileName(dir),
-                        Path = dir,
-                        Library = lib.name, 
-                    });
-                }
-            }
-            // Do the same with the gamekeeper library
+                PopulateLibrary(lib);
         }
 
-        public void RemoveLibrary(String LibraryName)
+        private void PopulateLibrary(Library lib)
+        {
+            foreach (var dir in Directory.GetDirectories(lib.path))
+            {
+                // TODO better to just calculator name via an accessor
+                Games.Add(new GameEntry
+                {
+                    Name = System.IO.Path.GetFileName(dir),
+                    Path = dir,
+                    Library = lib.name,
+                });
+            }
+
+            //  TODO Gamekeeper entries are created by checking the type, i.e. junction rather than directory
+        }
+
+        public void RemoveLibrary(Library library)
         {
             for (var i = this.Games.Count - 1; i >= 0; i--)
-                if (this.Games[i].Library == LibraryName)
+                if (this.Games[i].Library == library.name)
                     this.Games.RemoveAt(i);
+            this.Configuration.libraries.Remove(library);
+        }
+
+        public void AddLibrary(Library library)
+        {
+            if (this.Configuration.libraries.Where(l => l.name == library.name).Any())
+            {
+                throw new InvalidLibraryException($"There is already a library called {library.name}");
+            }
+            if (this.Configuration.libraries.Where(l => l.path == library.path).Any())
+            {
+                throw new InvalidLibraryException($"There is already a library entry for path {library.path}");
+            }
+            this.Configuration.libraries.Add(library);
+            PopulateLibrary(library);
         }
     }
     

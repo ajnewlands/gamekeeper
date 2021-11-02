@@ -34,13 +34,34 @@ namespace gamekeeper
 
         private void Click_New(object sender, RoutedEventArgs e)
         {
-            var win = new LibrarySettings("New Library", "C:\\Program Files");
-            var r = win.ShowDialog();
-            if (r == true)
+            var name = "New Library";
+            var path = "C:\\Program Files";
+
+            /// We try to prevent the user duplicating either a library name or source path,
+            /// either of which is likely to cause some confusion.
+            while(true)
             {
-                var lib = new Library { name = win.LibraryName, path = win.LibraryPath };
-                ((Model)this.DataContext).Configuration.libraries.Add(lib);
-            }   
+                var win = new LibrarySettings(name, path);
+                var r = win.ShowDialog();
+                if (r == true)
+                {
+                     var lib = new Library { name = win.LibraryName, path = win.LibraryPath };
+                    try
+                    {
+                        ((Model)this.DataContext).AddLibrary(lib);
+                        break;
+                    }
+                    catch (InvalidLibraryException ex)
+                    {
+                        MessageBox.Show(ex.Message, "Invalid library configuration");
+                        name = win.LibraryName;
+                        path = win.LibraryPath;
+                    }
+                } else
+                {
+                    break;
+                }   
+            }
         }
 
         private void Click_Delete(object sender, RoutedEventArgs e)
@@ -51,7 +72,7 @@ namespace gamekeeper
                 var r = MessageBox.Show($"Really delete '{name}'?", "Are you sure?", MessageBoxButton.YesNo);
                 if (r == MessageBoxResult.Yes)
                 {
-                    ((Model)this.DataContext).Configuration.libraries.Remove((Library)LibrarySelection.SelectedItem);
+                    ((Model)this.DataContext).RemoveLibrary((Library)LibrarySelection.SelectedItem);
                 }
             }
         }
